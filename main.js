@@ -5,7 +5,7 @@ const bodyParser = require("body-parser"); // use to parse the body in Json Form
 const url = "mongodb://localhost:27017";
 const app = express();
 /* Array of student */
-let myStudentsArray = [];
+let myStudentsArray;
 
 const main = async () => {
   /* MONGO conection and DataBase création*/
@@ -37,9 +37,8 @@ const main = async () => {
         .find({})
         .toArray(function (err, result) {
           if (err) throw err;
-           myStudentsArray.push(result);
+           myStudentsArray = result
         });
-
       res.status(200).send(myStudentsArray);
     });
     console.log("http://localhost:8080/Students");
@@ -78,7 +77,6 @@ let addToCollection = async (dataBase, req) => {
   try {
     let arrayForMyStudentToAdd = [];
     let studentToAdd = req.body;
-    myStudentsArray.push(studentToAdd);
     arrayForMyStudentToAdd.push(studentToAdd);
     await dataBase.collection("Students").insertMany(arrayForMyStudentToAdd);
   } catch (error) {
