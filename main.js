@@ -1,62 +1,49 @@
 const MongoCLient = require("mongodb").MongoClient;
 const express = require("express");
+const bodyParser = require("body-parser"); // use to parse the body in Json Format
 
 const url = "mongodb://localhost:27017";
 const app = express();
 
 const main = async () => {
-    const client = await MongoCLient.connect(url, {useUnifiedTopology: true });
-    const dataBase = client.db("groupGenerator");
+  /* MONGO conection and DataBase création*/
 
-    try {
-        await dataBase.createCollection("Students");
-        await dataBase.createCollection("Groups");
+  const client = await MongoCLient.connect(url, { useUnifiedTopology: true });
+  const dataBase = client.db("groupGenerator");
 
-        
-    } catch (error) {
-        console.log(error);
-    } finally {
-        console.log("!==> Success <==! all is good")
-        client.close();
-    }
+  try {
+    /* Create Collection */
+    await dataBase.createCollection("Students");
+    await dataBase.createCollection("Groups");
 
-}
+    /* ROUTES */
+    app.listen(8080);
+
+    // middlewear allows  us to support different format
+    app.use(bodyParser.json()); // use by req.body property (to have key value)
+    app.use(express.urlencoded({ extended: true }));
+
+    /* Accueil */
+    app.get("/", function (req, res) {
+      res.status(200).send("Vous êtes à laccueil");
+    });
+    console.log("http://localhost:8080/");
+
+    /* Students */
+    app.get("/Students", function (req, res) {
+      res.status(200).send("Students");
+    });
+    console.log("http://localhost:8080/Students");
+
+    app.post("/Students", function (req, res) {
+      let studentToAdd = req.body;
+      console.log(studentToAdd.name);
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("!==> Success <==! all is good");
+    client.close();
+  }
+};
 main();
-
-app.listen(8080);
-
-app.get('/students', function(req, res){ 
-    res.status(200)
-})
-
-app.post('/students', function(req, res){ 
-    res.status(200)
-})
-
-app.delete('/students/:name', function(req, res){ 
-    res.status(200)
-})
-
-app.get('/groups', function(req, res){ 
-    res.status(200)
-})
-
-app.get('/groups/:name', function(req, res){ 
-    res.status(200)
-})
-
-app.post('/groups', function(req, res){ 
-    res.status(200)
-})
-
-app.delete('/groups/:name', function(req, res){ 
-    res.status(200)
-})
-
-/* ROUTES */
-app.listen(8080);
-
-app.get("/", function (req, res) {
-    res.status(200).send("Vous êtes à laccueil");
-  });
-console.log("http://localhost:8080/");
