@@ -22,3 +22,33 @@ const main = async () => {
 
 }
 main();
+
+app.listen(8080);
+
+app.get('/students', function(req, res){ 
+    res.status(200)
+})
+
+app.post('/students', function(req, res){ 
+    res.status(200)
+})
+
+app.delete('/students/:name', function(req, res){ 
+    res.status(200)
+})
+
+app.get('/groups', function(req, res){ 
+    res.status(200)
+})
+
+app.get('/groups/:name', function(req, res){ 
+    res.status(200)
+})
+
+app.post('/groups', function(req, res){ 
+    res.status(200)
+})
+
+app.delete('/groups/:name', function(req, res){ 
+    res.status(200)
+})
