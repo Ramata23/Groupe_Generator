@@ -35,15 +35,29 @@ const main = async () => {
     });
     console.log("http://localhost:8080/Students");
 
+    /* Students POST */
     app.post("/Students", function (req, res) {
-      let studentToAdd = req.body;
-      console.log(studentToAdd.name);
+      addToCollection(dataBase, req);
     });
+
   } catch (error) {
     console.log(error);
   } finally {
     console.log("!==> Success <==! all is good");
-    client.close();
+    //client.close();
   }
+  
 };
 main();
+
+let addToCollection = async (dataBase, req) => {
+  try {
+    let studentToAdd = req.body;
+    let myStudentsArray = [];
+    myStudentsArray.push(studentToAdd);
+
+    await dataBase.collection("Students").insertMany(myStudentsArray);
+  } catch (error) {
+      console.log(error);
+  }
+};
