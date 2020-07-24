@@ -6,6 +6,7 @@ const url = "mongodb://localhost:27017";
 const app = express();
 /* Array of student */
 let myStudentsArray;
+let myGroupsArray;
 
 const main = async () => {
   /* MONGO conection and DataBase création*/
@@ -30,15 +31,13 @@ const main = async () => {
     });
     console.log("http://localhost:8080/");
 
+    /*---------------------------------------------------------
+    ------------------------- STUDENTS PART -------------------
+    ---------------------------------------------------------*/
+
     /* Students */
     app.get("/Students", function (req, res) {
-      const nameOfStudent = dataBase
-        .collection("Students")
-        .find({})
-        .toArray(function (err, result) {
-          if (err) throw err;
-           myStudentsArray = result
-        });
+      showStudent(dataBase);
       res.status(200).send(myStudentsArray);
     });
     console.log("http://localhost:8080/Students");
@@ -54,11 +53,29 @@ const main = async () => {
       deleteToCollection(dataBase, req);
     });
 
+    /*---------------------------------------------------------
+    ------------------------- GROUPS PART ---------------------
+    ---------------------------------------------------------*/
+    
     /* Groups */
     app.get("/Groups", function (req, res) {
-      res.status(200).send("Groups");
+      showGroup(dataBase);
+      res.status(200).send(myGroupsArray);
     });
     console.log("http://localhost:8080/Groups");
+
+    /* Groups name */
+    app.get("/Groups/:name", function (req, res) {
+      let groupsName = req.params.name;
+      res.status(200).send();
+    });
+
+    /* Groups Post */
+    app.post("/Groups", function (req, res) {
+      res.status(200).send();
+    });
+
+    /* Groups Delete  */
   } catch (error) {
     console.log(error);
   } finally {
@@ -96,4 +113,32 @@ let deleteToCollection = async (dataBase, req) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+/**
+ * @summary read the Students collection and push it into myStudentsArray
+ * @param {*} dataBase
+ */
+let showStudent = async (dataBase) => {
+  const nameOfStudent = dataBase
+    .collection("Students")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      myStudentsArray = result;
+    });
+};
+
+/**
+ *
+ * @param {*} dataBase
+ */
+let showGroup = async (dataBase) => {
+  const nameOfStudent = dataBase
+    .collection("Groups")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      myGroupsArray = result;
+    });
 };
