@@ -56,7 +56,7 @@ const main = async () => {
     /*---------------------------------------------------------
     ------------------------- GROUPS PART ---------------------
     ---------------------------------------------------------*/
-    
+
     /* Groups */
     app.get("/Groups", function (req, res) {
       showGroup(dataBase);
@@ -85,8 +85,16 @@ const main = async () => {
 };
 main();
 
+
+
+
+
+/*---------------------------------------------------------
+------------------------- FUNCTION PART -------------------
+---------------------------------------------------------*/
+
 /**
- * @summary catch the student to add and push him into an array, then insert him into the collection Students
+ * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
  * @param {*} dataBase
  * @param {*} req
  */
@@ -102,7 +110,7 @@ let addToCollection = async (dataBase, req) => {
 };
 
 /**
- * @summary select the student name to delete and delete it in Students collecttion
+ * @summary select the "Students" name to delete and delete it in Students collecttion
  * @param {*} dataBase
  * @param {*} req
  */
@@ -116,7 +124,7 @@ let deleteToCollection = async (dataBase, req) => {
 };
 
 /**
- * @summary read the Students collection and push it into myStudentsArray
+ * @summary read the "Students" collection and push it into myStudentsArray
  * @param {*} dataBase
  */
 let showStudent = async (dataBase) => {
@@ -130,7 +138,7 @@ let showStudent = async (dataBase) => {
 };
 
 /**
- *
+ *@summary read the "Groups" collection then assign it to myGroupsArray
  * @param {*} dataBase
  */
 let showGroup = async (dataBase) => {
