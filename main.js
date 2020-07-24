@@ -22,3 +22,12 @@ const main = async () => {
 
 }
 main();
+
+
+/* ROUTES */
+app.listen(8080);
+
+app.get("/", function (req, res) {
+    res.status(200).send("Vous êtes à laccueil");
+  });
+console.log("http://localhost:8080/");
