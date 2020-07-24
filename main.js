@@ -32,6 +32,14 @@ const main = async () => {
 
     /* Students */
     app.get("/Students", function (req, res) {
+      const nameOfStudent = dataBase
+        .collection("Students")
+        .find({})
+        .toArray(function (err, result) {
+          if (err) throw err;
+           myStudentsArray.push(result);
+        });
+
       res.status(200).send(myStudentsArray);
     });
     console.log("http://localhost:8080/Students");
@@ -39,6 +47,7 @@ const main = async () => {
     /* Students POST */
     app.post("/Students", function (req, res) {
       addToCollection(dataBase, req);
+      console.log();
     });
 
     /* Students Delete */
@@ -70,7 +79,7 @@ let addToCollection = async (dataBase, req) => {
     let arrayForMyStudentToAdd = [];
     let studentToAdd = req.body;
     myStudentsArray.push(studentToAdd);
-    arrayForMyStudentToAdd.push(studentToAdd)
+    arrayForMyStudentToAdd.push(studentToAdd);
     await dataBase.collection("Students").insertMany(arrayForMyStudentToAdd);
   } catch (error) {
     console.log(error);
