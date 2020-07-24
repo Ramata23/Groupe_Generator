@@ -13,7 +13,7 @@ const main = async () => {
     } catch (error) {
         console.log(error);
     } finally {
-        console.log("!==> Success <==!")
+        console.log("!==> Success <==! all is good")
         client.close();
     }
 
