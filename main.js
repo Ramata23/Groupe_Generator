@@ -1,7 +1,7 @@
 const MongoCLient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
-
 const express = require("express");
+
+const url = "mongodb://localhost:27017";
 const app = express();
 
 const main = async () => {
