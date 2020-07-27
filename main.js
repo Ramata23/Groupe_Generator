@@ -42,14 +42,16 @@ const main = async () => {
 
     console.log("http://localhost:8080/Students");
 
-    /* Students POST */
-    app.post("/Students", function (req, res) {
+    /* Students POST - Add a student */
+    app.post("/Students",function (req, res) {
       addToStudentsCollection(dataBase, req);
+      res.status(200).send(req.body);
     });
 
     /* Students Delete */
     app.delete("/Students/:name", function (req, res) {
       deleteStudentsToCollection(dataBase, req);
+      res.status(200).send(req.params.name);
     });
 
     /*---------------------------------------------------------
@@ -70,14 +72,17 @@ const main = async () => {
 
     /* Groups Post */
     app.post("/Groups", function (req, res) {
-      console.log(req.body);
       addToGroupsCollection(dataBase, req);
+      res.status(200).send(req.body);
+
     });
 
     /* Groups Delete  */
     app.delete("/Groups/:name", function (req, res) {
       deleteGroupsToCollection(dataBase, req);
+      res.status(200).send(req.params.name);
     });
+    
   } catch (error) {
     console.log(error);
   } finally {
