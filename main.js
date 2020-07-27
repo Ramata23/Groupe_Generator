@@ -36,9 +36,11 @@ const main = async () => {
     ---------------------------------------------------------*/
 
     /* Students */
-    app.get("/Students", function (req, res) {
-      showStudent(dataBase);
-      res.status(200).send(myStudentsArray);
+    app.get("/Students",  async function (req, res) {
+      //await showStudent(dataBase);
+      // let test = await showStudent(dataBase)
+      // console.log(test)
+      res.status(200).send(await showStudent(dataBase));
     });
     console.log("http://localhost:8080/Students");
 
@@ -133,13 +135,14 @@ let deleteStudentsToCollection = async (dataBase, req) => {
  * @param {*} dataBase
  */
 let showStudent = async (dataBase) => {
-  const nameOfStudent = dataBase
+  const nameOfStudent = await dataBase
     .collection("Students")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      myStudentsArray = result;
-    });
+    .find()
+    .toArray() 
+      
+    console.log(nameOfStudent)
+    
+    return nameOfStudent
 };
 
 /**
