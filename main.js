@@ -89,8 +89,14 @@ main();
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
 
+
+/**
+ * @summary find in the Groups collection the input, then create an array, if the input does not exist return an error message else return the Groups find
+ * @param {*} dataBase 
+ * @param {*} req 
+ * @returns the group we were looking for
+ */
 let searchByGroupName = async (dataBase, req) => {
-  // let test;
   const nameOfGroup = await dataBase
     .collection("Groups")
     .find({ name: req.params.name })
@@ -103,10 +109,12 @@ let searchByGroupName = async (dataBase, req) => {
   }
 };
 
+
 /**
  * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
  * @param {*} dataBase
  * @param {*} req
+ * @returns the student to add (input)
  */
 let addToStudentsCollection = async (dataBase, req) => {
   let studentToAdd = req.body;
@@ -121,10 +129,12 @@ let addToStudentsCollection = async (dataBase, req) => {
   return studentToAdd;
 };
 
+
 /**
- * @summary select the "Students" name to delete and delete it in Students collecttion
+ * @summary delete in the Student collection the student name input
  * @param {*} dataBase
  * @param {*} req
+ * @returns the student name to delete
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.params.name;
@@ -136,6 +146,7 @@ let deleteStudentsToCollection = async (dataBase, req) => {
   return studentName;
 };
 
+
 /**
  * @summary read the Students collection and assign the content to nameOfStudent
  * @returns an array of students stock in the collection Students (nameOfStudent)
@@ -145,6 +156,7 @@ let showStudent = async (dataBase) => {
   const nameOfStudent = await dataBase.collection("Students").find().toArray();
   return nameOfStudent;
 };
+
 
 /**
  * @summary read the Groups collection and assign  the content to nameOfGroup
@@ -156,6 +168,14 @@ let showGroup = async (dataBase) => {
   return nameOfGroup;
 };
 
+
+
+/**
+ * @summary add in the collection Groups a new group
+ * @returns the name of the group we want to add
+ * @param {*} dataBase 
+ * @param {*} req 
+ */
 let addToGroupsCollection = async (dataBase, req) => {
   let groupsToAdd = req.body;
   try {
@@ -169,6 +189,13 @@ let addToGroupsCollection = async (dataBase, req) => {
   return groupsToAdd;
 };
 
+
+/**
+ * @summary search in the collection Groups, the group name we want to delete, then delete it
+ * @returns the groupe name we want to delete
+ * @param {*} dataBase 
+ * @param {*} req 
+ */
 let deleteGroupsToCollection = async (dataBase, req) => {
   let groupName = req.params.name;
   try {
