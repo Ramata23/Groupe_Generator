@@ -44,13 +44,12 @@ const main = async () => {
 
     /* Students POST */
     app.post("/Students", function (req, res) {
-      addToCollection(dataBase, req);
-      console.log();
+      addToStudentsCollection(dataBase, req);
     });
 
     /* Students Delete */
     app.delete("/Students/:name", function (req, res) {
-      deleteToCollection(dataBase, req);
+      deleteStudentsToCollection(dataBase, req);
     });
 
     /*---------------------------------------------------------
@@ -64,7 +63,7 @@ const main = async () => {
     });
     console.log("http://localhost:8080/Groups");
 
-    /* Groups name */
+    /* Groups name  must be completed */
     app.get("/Groups/:name", function (req, res) {
       let groupsName = req.params.name;
       res.status(200).send();
@@ -72,10 +71,16 @@ const main = async () => {
 
     /* Groups Post */
     app.post("/Groups", function (req, res) {
-      res.status(200).send();
+        console.log(req.body);
+        addToGroupsCollection(dataBase, req)
     });
 
     /* Groups Delete  */
+    app.delete("/Groups/:name", function(req, res){
+        deleteGroupsToCollection(dataBase, req);
+    })
+
+
   } catch (error) {
     console.log(error);
   } finally {
@@ -98,7 +103,7 @@ main();
  * @param {*} dataBase
  * @param {*} req
  */
-let addToCollection = async (dataBase, req) => {
+let addToStudentsCollection = async (dataBase, req) => {
   try {
     let arrayForMyStudentToAdd = [];
     let studentToAdd = req.body;
@@ -114,7 +119,7 @@ let addToCollection = async (dataBase, req) => {
  * @param {*} dataBase
  * @param {*} req
  */
-let deleteToCollection = async (dataBase, req) => {
+let deleteStudentsToCollection = async (dataBase, req) => {
   try {
     let studentName = req.params.name;
     await dataBase.collection("Students").deleteOne({ name: studentName });
@@ -150,3 +155,26 @@ let showGroup = async (dataBase) => {
       myGroupsArray = result;
     });
 };
+
+let addToGroupsCollection = async (dataBase, req) => {
+    try {
+      let arrayForMyGroupsToAdd = [];
+      let groupsToAdd = req.body;
+      arrayForMyGroupsToAdd.push(groupsToAdd);
+      await dataBase.collection("Groups").insertMany(arrayForMyGroupsToAdd);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+  let deleteGroupsToCollection = async (dataBase, req) => {
+    try {
+      let groupName = req.params.name;
+      await dataBase.collection("Groups").deleteOne({ name: groupName });
+    } catch (error) {
+      console.log(error);
+    }
+  };
