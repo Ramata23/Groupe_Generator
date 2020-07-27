@@ -115,7 +115,6 @@ let addToStudentsCollection = async (dataBase, req) => {
   let studentToAdd = req.body;
   try {
     let arrayForMyStudentToAdd = [];
-
     arrayForMyStudentToAdd.push(studentToAdd);
     await dataBase.collection("Students").insertMany(arrayForMyStudentToAdd);
   } catch (error) {
@@ -132,9 +131,7 @@ let addToStudentsCollection = async (dataBase, req) => {
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.params.name;
-
-  let test = dataBase.collection("Students").find({ name: studentName }).toArray();
-
+  let test =  await dataBase.collection("Students").find({ name: studentName }).toArray();
   if (test.length > 0) {
     try {
       await dataBase.collection("Students").deleteOne({ name: studentName });
