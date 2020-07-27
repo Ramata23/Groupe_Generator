@@ -48,9 +48,8 @@ const main = async () => {
     });
 
     /* Students Delete */
-    app.delete("/Students/:name", function (req, res) {
-      deleteStudentsToCollection(dataBase, req);
-      res.status(200).send(req.params.name);
+    app.delete("/Students/:name", async function (req, res) {
+      res.status(200).send(await deleteStudentsToCollection(dataBase, req));
     });
 
     /*---------------------------------------------------------
@@ -65,21 +64,18 @@ const main = async () => {
 
     /* Groups name  must be completed */
     app.get("/Groups/:name", async function (req, res) {
-      res.status(200).send( await searchByGroupName(dataBase, req));
+      res.status(200).send(await searchByGroupName(dataBase, req));
     });
 
     /* Groups Post */
-    app.post("/Groups", function (req, res) {
-      addToGroupsCollection(dataBase, req);
-      res.status(200).send(req.body);
+    app.post("/Groups", async function (req, res) {
+      res.status(200).send(await addToGroupsCollection(dataBase, req));
     });
 
     /* Groups Delete  */
-    app.delete("/Groups/:name", function (req, res) {
-      deleteGroupsToCollection(dataBase, req);
-      res.status(200).send(req.params.name);
+    app.delete("/Groups/:name", async function (req, res) {
+      res.status(200).send(await deleteGroupsToCollection(dataBase, req));
     });
-
   } catch (error) {
     console.log(error);
   } finally {
@@ -100,13 +96,11 @@ let searchByGroupName = async (dataBase, req) => {
     .find({ name: req.params.name })
     .toArray();
 
-    if (nameOfGroup.length != 0) {
-      return nameOfGroup;
-    } else {
-      return ("this group does not exist")
-    }
- 
-  
+  if (nameOfGroup.length != 0) {
+    return nameOfGroup;
+  } else {
+    return "this group does not exist";
+  }
 };
 
 /**
@@ -118,13 +112,13 @@ let addToStudentsCollection = async (dataBase, req) => {
   let studentToAdd = req.body;
   try {
     let arrayForMyStudentToAdd = [];
-    
+
     arrayForMyStudentToAdd.push(studentToAdd);
     await dataBase.collection("Students").insertMany(arrayForMyStudentToAdd);
   } catch (error) {
     console.log(error);
   }
-  return studentToAdd
+  return studentToAdd;
 };
 
 /**
@@ -133,12 +127,13 @@ let addToStudentsCollection = async (dataBase, req) => {
  * @param {*} req
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
+  let studentName = req.params.name;
   try {
-    let studentName = req.params.name;
     await dataBase.collection("Students").deleteOne({ name: studentName });
   } catch (error) {
     console.log(error);
   }
+  return studentName;
 };
 
 /**
@@ -162,21 +157,24 @@ let showGroup = async (dataBase) => {
 };
 
 let addToGroupsCollection = async (dataBase, req) => {
+  let groupsToAdd = req.body;
   try {
     let arrayForMyGroupsToAdd = [];
-    let groupsToAdd = req.body;
+
     arrayForMyGroupsToAdd.push(groupsToAdd);
     await dataBase.collection("Groups").insertMany(arrayForMyGroupsToAdd);
   } catch (error) {
     console.log(error);
   }
+  return groupsToAdd;
 };
 
 let deleteGroupsToCollection = async (dataBase, req) => {
+  let groupName = req.params.name;
   try {
-    let groupName = req.params.name;
     await dataBase.collection("Groups").deleteOne({ name: groupName });
   } catch (error) {
     console.log(error);
   }
+  return groupName;
 };
