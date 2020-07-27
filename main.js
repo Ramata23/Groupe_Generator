@@ -36,12 +36,10 @@ const main = async () => {
     ---------------------------------------------------------*/
 
     /* Students */
-    app.get("/Students",  async function (req, res) {
-      //await showStudent(dataBase);
-      // let test = await showStudent(dataBase)
-      // console.log(test)
+    app.get("/Students", async function (req, res) {
       res.status(200).send(await showStudent(dataBase));
     });
+
     console.log("http://localhost:8080/Students");
 
     /* Students POST */
@@ -59,9 +57,8 @@ const main = async () => {
     ---------------------------------------------------------*/
 
     /* Groups */
-    app.get("/Groups", function (req, res) {
-      showGroup(dataBase);
-      res.status(200).send(myGroupsArray);
+    app.get("/Groups", async function (req, res) {
+      res.status(200).send(await showGroup(dataBase));
     });
     console.log("http://localhost:8080/Groups");
 
@@ -73,16 +70,14 @@ const main = async () => {
 
     /* Groups Post */
     app.post("/Groups", function (req, res) {
-        console.log(req.body);
-        addToGroupsCollection(dataBase, req)
+      console.log(req.body);
+      addToGroupsCollection(dataBase, req);
     });
 
     /* Groups Delete  */
-    app.delete("/Groups/:name", function(req, res){
-        deleteGroupsToCollection(dataBase, req);
-    })
-
-
+    app.delete("/Groups/:name", function (req, res) {
+      deleteGroupsToCollection(dataBase, req);
+    });
   } catch (error) {
     console.log(error);
   } finally {
@@ -91,10 +86,6 @@ const main = async () => {
   }
 };
 main();
-
-
-
-
 
 /*---------------------------------------------------------
 ------------------------- FUNCTION PART -------------------
@@ -131,53 +122,41 @@ let deleteStudentsToCollection = async (dataBase, req) => {
 };
 
 /**
- * @summary read the "Students" collection and push it into myStudentsArray
+ * @summary read the Students collection and assign the content to nameOfStudent
+ * @returns an array of students stock in the collection Students (nameOfStudent)
  * @param {*} dataBase
  */
 let showStudent = async (dataBase) => {
-  const nameOfStudent = await dataBase
-    .collection("Students")
-    .find()
-    .toArray() 
-      
-    console.log(nameOfStudent)
-    
-    return nameOfStudent
+  const nameOfStudent = await dataBase.collection("Students").find().toArray();
+  return nameOfStudent;
 };
 
 /**
- *@summary read the "Groups" collection then assign it to myGroupsArray
- * @param {*} dataBase
+ * @summary read the Groups collection and assign  the content to nameOfGroup
+ * @param {*} dataBase 
+ * @returns an array of groups stock in the collection Groups (nameOfGroup)
  */
 let showGroup = async (dataBase) => {
-  const nameOfStudent = dataBase
-    .collection("Groups")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      myGroupsArray = result;
-    });
+  const nameOfGroup = await dataBase.collection("Groups").find().toArray();
+  return nameOfGroup;
 };
 
 let addToGroupsCollection = async (dataBase, req) => {
-    try {
-      let arrayForMyGroupsToAdd = [];
-      let groupsToAdd = req.body;
-      arrayForMyGroupsToAdd.push(groupsToAdd);
-      await dataBase.collection("Groups").insertMany(arrayForMyGroupsToAdd);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  try {
+    let arrayForMyGroupsToAdd = [];
+    let groupsToAdd = req.body;
+    arrayForMyGroupsToAdd.push(groupsToAdd);
+    await dataBase.collection("Groups").insertMany(arrayForMyGroupsToAdd);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-
-
-
-  let deleteGroupsToCollection = async (dataBase, req) => {
-    try {
-      let groupName = req.params.name;
-      await dataBase.collection("Groups").deleteOne({ name: groupName });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+let deleteGroupsToCollection = async (dataBase, req) => {
+  try {
+    let groupName = req.params.name;
+    await dataBase.collection("Groups").deleteOne({ name: groupName });
+  } catch (error) {
+    console.log(error);
+  }
+};
