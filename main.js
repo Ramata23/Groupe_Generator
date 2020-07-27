@@ -82,7 +82,7 @@ const main = async () => {
       deleteGroupsToCollection(dataBase, req);
       res.status(200).send(req.params.name);
     });
-    
+
   } catch (error) {
     console.log(error);
   } finally {
