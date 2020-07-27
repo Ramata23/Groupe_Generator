@@ -132,12 +132,21 @@ let addToStudentsCollection = async (dataBase, req) => {
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.params.name;
-  try {
-    await dataBase.collection("Students").deleteOne({ name: studentName });
-  } catch (error) {
-    console.log(error);
+
+  let test = dataBase.collection("Students").find({ name: studentName }).toArray();
+
+  if (test.length > 0) {
+    try {
+      await dataBase.collection("Students").deleteOne({ name: studentName });
+    } catch (error) {
+      console.log(error);
+    }
+    return studentName;
+  } else {
+    return ("this student doesn't exist")
   }
-  return studentName;
+
+  
 };
 
 /**
