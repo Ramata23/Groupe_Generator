@@ -43,9 +43,8 @@ const main = async () => {
     console.log("http://localhost:8080/Students");
 
     /* Students POST - Add a student */
-    app.post("/Students", function (req, res) {
-      addToStudentsCollection(dataBase, req);
-      res.status(200).send(req.body);
+    app.post("/Students", async function (req, res) {
+      res.status(200).send(await addToStudentsCollection(dataBase, req));
     });
 
     /* Students Delete */
@@ -80,6 +79,7 @@ const main = async () => {
       deleteGroupsToCollection(dataBase, req);
       res.status(200).send(req.params.name);
     });
+
   } catch (error) {
     console.log(error);
   } finally {
@@ -105,7 +105,8 @@ let searchByGroupName = async (dataBase, req) => {
     } else {
       return ("this group does not exist")
     }
-
+ 
+  
 };
 
 /**
@@ -114,14 +115,16 @@ let searchByGroupName = async (dataBase, req) => {
  * @param {*} req
  */
 let addToStudentsCollection = async (dataBase, req) => {
+  let studentToAdd = req.body;
   try {
     let arrayForMyStudentToAdd = [];
-    let studentToAdd = req.body;
+    
     arrayForMyStudentToAdd.push(studentToAdd);
     await dataBase.collection("Students").insertMany(arrayForMyStudentToAdd);
   } catch (error) {
     console.log(error);
   }
+  return studentToAdd
 };
 
 /**
