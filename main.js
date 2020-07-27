@@ -43,7 +43,7 @@ const main = async () => {
     console.log("http://localhost:8080/Students");
 
     /* Students POST - Add a student */
-    app.post("/Students",function (req, res) {
+    app.post("/Students", function (req, res) {
       addToStudentsCollection(dataBase, req);
       res.status(200).send(req.body);
     });
@@ -65,16 +65,14 @@ const main = async () => {
     console.log("http://localhost:8080/Groups");
 
     /* Groups name  must be completed */
-    app.get("/Groups/:name", function (req, res) {
-      let groupsName = req.params.name;
-      res.status(200).send();
+    app.get("/Groups/:name", async function (req, res) {
+      res.status(200).send( await searchByGroupName(dataBase, req));
     });
 
     /* Groups Post */
     app.post("/Groups", function (req, res) {
       addToGroupsCollection(dataBase, req);
       res.status(200).send(req.body);
-
     });
 
     /* Groups Delete  */
@@ -82,7 +80,6 @@ const main = async () => {
       deleteGroupsToCollection(dataBase, req);
       res.status(200).send(req.params.name);
     });
-
   } catch (error) {
     console.log(error);
   } finally {
@@ -95,6 +92,21 @@ main();
 /*---------------------------------------------------------
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
+
+let searchByGroupName = async (dataBase, req) => {
+  // let test;
+  const nameOfGroup = await dataBase
+    .collection("Groups")
+    .find({ name: req.params.name })
+    .toArray();
+
+    if (nameOfGroup.length != 0) {
+      return nameOfGroup;
+    } else {
+      return ("this group does not exist")
+    }
+
+};
 
 /**
  * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
@@ -138,7 +150,7 @@ let showStudent = async (dataBase) => {
 
 /**
  * @summary read the Groups collection and assign  the content to nameOfGroup
- * @param {*} dataBase 
+ * @param {*} dataBase
  * @returns an array of groups stock in the collection Groups (nameOfGroup)
  */
 let showGroup = async (dataBase) => {
