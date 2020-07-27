@@ -4,9 +4,6 @@ const bodyParser = require("body-parser"); // use to parse the body in Json Form
 
 const url = "mongodb://localhost:27017";
 const app = express();
-/* Array of student */
-let myStudentsArray;
-let myGroupsArray;
 
 const main = async () => {
   /* MONGO conection and DataBase création*/
@@ -89,11 +86,10 @@ main();
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
 
-
 /**
  * @summary find in the Groups collection the input, then create an array, if the input does not exist return an error message else return the Groups find
- * @param {*} dataBase 
- * @param {*} req 
+ * @param {*} dataBase
+ * @param {*} req
  * @returns the group we were looking for
  */
 let searchByGroupName = async (dataBase, req) => {
@@ -108,7 +104,6 @@ let searchByGroupName = async (dataBase, req) => {
     return "this group does not exist";
   }
 };
-
 
 /**
  * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
@@ -129,7 +124,6 @@ let addToStudentsCollection = async (dataBase, req) => {
   return studentToAdd;
 };
 
-
 /**
  * @summary delete in the Student collection the student name input
  * @param {*} dataBase
@@ -146,7 +140,6 @@ let deleteStudentsToCollection = async (dataBase, req) => {
   return studentName;
 };
 
-
 /**
  * @summary read the Students collection and assign the content to nameOfStudent
  * @returns an array of students stock in the collection Students (nameOfStudent)
@@ -156,7 +149,6 @@ let showStudent = async (dataBase) => {
   const nameOfStudent = await dataBase.collection("Students").find().toArray();
   return nameOfStudent;
 };
-
 
 /**
  * @summary read the Groups collection and assign  the content to nameOfGroup
@@ -168,13 +160,11 @@ let showGroup = async (dataBase) => {
   return nameOfGroup;
 };
 
-
-
 /**
  * @summary add in the collection Groups a new group
  * @returns the name of the group we want to add
- * @param {*} dataBase 
- * @param {*} req 
+ * @param {*} dataBase
+ * @param {*} req
  */
 let addToGroupsCollection = async (dataBase, req) => {
   let groupsToAdd = req.body;
@@ -189,19 +179,27 @@ let addToGroupsCollection = async (dataBase, req) => {
   return groupsToAdd;
 };
 
-
 /**
  * @summary search in the collection Groups, the group name we want to delete, then delete it
  * @returns the groupe name we want to delete
- * @param {*} dataBase 
- * @param {*} req 
+ * @param {*} dataBase
+ * @param {*} req
  */
 let deleteGroupsToCollection = async (dataBase, req) => {
   let groupName = req.params.name;
-  try {
-    await dataBase.collection("Groups").deleteOne({ name: groupName });
-  } catch (error) {
-    console.log(error);
+  const test = await dataBase
+    .collection("Groups")
+    .find({ name: groupName })
+    .toArray();
+
+  if (test.length > 0) {
+    try {
+      await dataBase.collection("Groups").deleteOne({ name: groupName });
+    } catch (error) {
+      console.log(error);
+    }
+    return groupName;
+  } else {
+    return "this Group doesn't exist";
   }
-  return groupName;
 };
