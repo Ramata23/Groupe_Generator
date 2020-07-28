@@ -73,6 +73,7 @@ const main = async () => {
     app.delete("/Groups/:name", async function (req, res) {
       res.status(200).send(await deleteGroupsToCollection(dataBase, req));
     });
+
   } catch (error) {
     console.log(error);
   } finally {
@@ -131,7 +132,10 @@ let addToStudentsCollection = async (dataBase, req) => {
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.params.name;
-  let test =  await dataBase.collection("Students").find({ name: studentName }).toArray();
+  let test = await dataBase
+    .collection("Students")
+    .find({ name: studentName })
+    .toArray();
   if (test.length > 0) {
     try {
       await dataBase.collection("Students").deleteOne({ name: studentName });
@@ -140,10 +144,8 @@ let deleteStudentsToCollection = async (dataBase, req) => {
     }
     return studentName;
   } else {
-    return ("this student doesn't exist")
+    return "this student doesn't exist";
   }
-
-  
 };
 
 /**
