@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GroupGenerator</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-          <h3>Group Generator</h3>
-          <a href="/students">Students</a> |
-          <a href="/students">Groups</a> 
-          <!-- <a class="nav-link" href="#">Students</a>
+      <nav>
+        <h3>Group Generator</h3>
+        <a href="/students">Students</a> |
+        <a href="/students">Groups</a>
+        <!-- <a class="nav-link" href="#">Students</a>
           <a class="nav-link" href="#">Groups</a> -->
-        </nav>
-      </header>
-      <section>
-
+      </nav>
+    </header>
+    <section>
       <h2>List of students</h2>
       <div>
-      <ul>
-        <% for (var i = 0; i < nameOfStudent.length ; i++) { %>
-            <li> <%= nameOfStudent[i] %> </li>
+        <ul>
+          <% for (var i = 0; i < studentArray.length ; i++) { %>
+            <li> <%= studentArray[i] %> </li>
         <% } %>
-     
 
-      </ul>
-      <form action="http://localhost:8080/Students" method="GET">
-        <label for="">Student</label>
-        <input type="text">
-        <button>See Student</button>
-    </form>
+        </ul>
 
+        <form action="http://localhost:8080/Students" method="GET">
+          <label for="">Student</label>
+          <input type="text" />
+          <button>See Student</button>
+        </form>
 
-      <!-- <input type="text" placeholder="Name">
-      <input type="submit" value="Add"></button>  -->
-    </div>
+      </div>
     </section>
-
-    
-</body>
+  </body>
 </html>
