@@ -11,7 +11,6 @@ let getStudentName = async ()=>{
     for (let index = 0; index < stud.length; index++) {
        studentArray.push(stud[index].name) 
     }
-    console.log(studentArray);
 }
 getStudentName()
 
