@@ -11,6 +11,14 @@ app.get('/',function(req, res){
     res.render('index.ejs');  //renders the index.jade file into html and returns as a response. The render function optionally takes the data to pass to the view.
 });
 
+app.get('/Students',function(req, res){
+    res.render('students.ejs');  
+});
+
+app.get('/Groups',function(req, res){
+    res.render('groups.ejs');  
+});
+
 //Starts the Express server with a callback
 app.listen(PORT, function(err) {
     if (!err) {
