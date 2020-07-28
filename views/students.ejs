@@ -7,8 +7,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark w-50 m-auto">
-          <h3 class="navbar-brand">Group Generator</h3>
+        <nav>
+          <h3>Group Generator</h3>
           <a href="/students">Students</a> |
           <a href="/students">Groups</a> 
           <!-- <a class="nav-link" href="#">Students</a>
@@ -20,6 +20,9 @@
       <h2>List of students</h2>
       <div>
       <ul>
+        <% for (var i = 0; i < nameOfStudent.length ; i++) { %>
+            <li> <%= nameOfStudent[i] %> </li>
+        <% } %>
      
 
       </ul>
