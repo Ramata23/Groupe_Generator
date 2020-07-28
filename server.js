@@ -2,7 +2,7 @@ const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 const fetch = require("node-fetch");
 
-const PORT = 3000; //Randomly chosen port
+const PORT = 3000; 
 let studentArray = [];
 let groupsArray = [];
 
@@ -25,10 +25,12 @@ let getGroupsName = async () => {
 getGroupsName();
 
 app.set("view engine", "ejs");
+// mention the public directory from which you are serving the static files. Like css/js/image
+app.use(express.static("public"));
 
 //Creates a Root Route
 app.get("/", function (req, res) {
-  res.render("index.ejs"); //renders the index.jade file into html and returns as a response. The render function optionally takes the data to pass to the view.
+  res.render("index.ejs");  
 });
 
 app.get("/Students", async function (req, res) {
@@ -38,6 +40,9 @@ app.get("/Students", async function (req, res) {
 app.get("/Groups", async function (req, res) {
   res.render("groups.ejs", { groupsArray });
 });
+
+
+
 
 //Starts the Express server with a callback
 app.listen(PORT, function (err) {

@@ -4,41 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Of Groups</title>
-   
+    <link rel="stylesheet" href="groups.css" />
   </head>
 
   <body>
     <header>
-      <nav>
-        <h3>Group Generator</h3>
+      <div class="topnav">
+        <a href="#">Group Generator</a>
+        <a href="http://localhost:3000/">Accueil</a>
         <a href="http://localhost:3000/students">Students</a> |
         <a href="http://localhost:3000/Groups">Groups</a>
-      </nav>
+      </div>
     </header>
 
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content">
+      <h1>Generate a Groupe</h1>
+    </div>
 
-
+    <div class="groupList">
       <h2>List of Groups</h2>
       <ul>
-        <ul>
-          <% for (var i = 0; i < groupsArray.length ; i++) { %>
-            <li> <%= groupsArray[i] %> </li>
+        <% for (var i = 0; i < groupsArray.length ; i++) { %>
+        <li><%= groupsArray[i] %></li>
         <% } %>
-
-        </ul>
       </ul>
+    </div>
+
+    <main>
       <h4>GroupsGenerator(2)</h4>
-      <ul>
-
-      </ul>
+      <ul></ul>
 
       <h4>Watch Assignator(3)</h4>
-      <ul>
-
-      </ul>
-      <input type="text" id="ProjetName" />
-      <input type="text" id="GroupsMembre" />
-      <input type="text" id="Generate" />
-
+      <ul></ul>
+      <input type="text" placeholder="ProjetName" />
+      <input type="text" placeholder="GroupsMembre" />
+      <input type="text" placeholder="Generate" />
+    </main>
   </body>
 </html>

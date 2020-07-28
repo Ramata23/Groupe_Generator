@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GroupGenerator</title>
+    <link rel="stylesheet" href="student.css">
   </head>
   <body>
     <header>
-      <nav>
-        <h3>Group Generator</h3>
+      <div class="topnav">
+        <a href="#">Group Generator</a>
+        <a href="http://localhost:3000/">Accueil</a>
         <a href="http://localhost:3000/students">Students</a> |
         <a href="http://localhost:3000/Groups">Groups</a>
-        <!-- <a class="nav-link" href="#">Students</a>
-          <a class="nav-link" href="#">Groups</a> -->
-      </nav>
+      </div>
     </header>
     <section>
       <h2>List of students</h2>
@@ -22,15 +22,20 @@
           <% for (var i = 0; i < studentArray.length ; i++) { %>
             <li> <%= studentArray[i] %> </li>
         <% } %>
-
         </ul>
 
-        <!--  -->
         <form action="http://localhost:8080/Students" method="GET">
           <label for="">Student</label>
           <input type="text" />
           <button>See Student</button>
         </form>
+
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+        <div class="content">
+          <h1>Generate a Groupe</h1>
+        </div>
 
       </div>
     </section>
