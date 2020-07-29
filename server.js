@@ -4,26 +4,7 @@ const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 
 const PORT = 3000;
-let studentArray = [];
-let groupsArray = [];
 
-// let getStudentList = async () => {
-//   let studentData = await fetch("http://localhost:8080/Students");
-//   let stud = await studentData.json();
-//   for (let index = 0; index < stud.length; index++) {
-//     studentArray.push(stud[index].name);
-//   }
-// };
-//getStudentList();
-
-// let getGroupsList = async () => {
-//   let groupsData = await fetch("http://localhost:8080/Groups");
-//   let group = await groupsData.json();
-//   for (let index = 0; index < group.length; index++) {
-//     groupsArray.push(group[index].name);
-//   }
-// };
-// getGroupsList();
 
 // middleware
 app.use(express.urlencoded({ extended: true })); // allow us to receive data from formulaire
