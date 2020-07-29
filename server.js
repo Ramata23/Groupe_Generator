@@ -16,14 +16,14 @@ let groupsArray = [];
 // };
 //getStudentList();
 
-let getGroupsList = async () => {
-  let groupsData = await fetch("http://localhost:8080/Groups");
-  let group = await groupsData.json();
-  for (let index = 0; index < group.length; index++) {
-    groupsArray.push(group[index].name);
-  }
-};
-getGroupsList();
+// let getGroupsList = async () => {
+//   let groupsData = await fetch("http://localhost:8080/Groups");
+//   let group = await groupsData.json();
+//   for (let index = 0; index < group.length; index++) {
+//     groupsArray.push(group[index].name);
+//   }
+// };
+// getGroupsList();
 
 // middleware
 app.use(express.urlencoded({ extended: true })); // allow us to receive data from formulaire
@@ -44,7 +44,9 @@ app.get("/Students", async function (req, res) {
 });
 
 app.get("/Groups", async function (req, res) {
-  res.render("groups.ejs", { groupsArray });
+  let groupsData = await fetch("http://localhost:8080/Groups");
+  let group = await groupsData.json();
+  res.render("groups.ejs", { groupsArray : group });
 });
 
 app.post("/Students", async function (req, res) {
