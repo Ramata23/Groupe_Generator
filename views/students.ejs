@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="student.css">
   </head>
   <body>
-    <header>
-      <div class="topnav">
-        <a href="#">Group Generator</a>
-        <a href="http://localhost:3000/">Accueil</a>
-        <a href="http://localhost:3000/students">Students</a> |
-        <a href="http://localhost:3000/Groups">Groups</a>
-      </div>
-    </header>
+    <%- include('partial/header') %>
     <section>
       <h2>List of students</h2>
       <div>
@@ -24,20 +17,21 @@
         <% } %>
         </ul>
 
-        <form action="http://localhost:8080/Students" method="GET">
+        <form action= "/Students" method="POST">
           <label for="">Student</label>
-          <input type="text" />
-          <button>See Student</button>
+          <input type="text" name="name"/>
+          <button type="submit">Add a student</button>
         </form>
 
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
         <div class="content">
-          <h1>Generate a Groupe</h1>
+          <h1>Add Student</h1>
         </div>
 
       </div>
     </section>
+    <script src="student.js"></script>
   </body>
 </html>
