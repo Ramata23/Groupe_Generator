@@ -7,14 +7,14 @@ const PORT = 3000;
 let studentArray = [];
 let groupsArray = [];
 
-let getStudentList = async () => {
-  let studentData = await fetch("http://localhost:8080/Students");
-  let stud = await studentData.json();
-  for (let index = 0; index < stud.length; index++) {
-    studentArray.push(stud[index].name);
-  }
-};
-getStudentList();
+// let getStudentList = async () => {
+//   let studentData = await fetch("http://localhost:8080/Students");
+//   let stud = await studentData.json();
+//   for (let index = 0; index < stud.length; index++) {
+//     studentArray.push(stud[index].name);
+//   }
+// };
+//getStudentList();
 
 let getGroupsList = async () => {
   let groupsData = await fetch("http://localhost:8080/Groups");
@@ -25,14 +25,12 @@ let getGroupsList = async () => {
 };
 getGroupsList();
 
-// let postStudent = async () =>{
-//   let studentToAdd = req.body
-// }
+// middleware
+app.use(express.urlencoded({ extended: true })); // allow us to receive data from formulaire
+app.use(express.json()); // allow us to work with json format
 
-app.use(express.json());
 app.set("view engine", "ejs"); // the view engine in type of ejs
 app.use(express.static("public")); // mention the public directory from which you are serving the static files. Like css/js/image
-app.use(express.urlencoded({ extended: true })); // allow us to use body-parser
 
 //Creates a Root Route
 app.get("/", function (req, res) {
@@ -40,7 +38,9 @@ app.get("/", function (req, res) {
 });
 
 app.get("/Students", async function (req, res) {
-  res.render("students.ejs", { studentArray });
+  let studentData = await fetch("http://localhost:8080/Students");
+  let stud = await studentData.json();
+  res.render("students.ejs", { studentArray : stud });
 });
 
 app.get("/Groups", async function (req, res) {
@@ -48,28 +48,27 @@ app.get("/Groups", async function (req, res) {
 });
 
 app.post("/Students", async function (req, res) {
-  console.log(req.body);
   fetch("http://localhost:8080/Students", {
     method: "POST",
     headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name : req.body.name
-    })
+      name: req.body.name,
+    }),
   })
     .then(function (response) {
       return response.json();
     })
-    .then(function (sucess) {
-      console.log("request sucess: ", sucess);
+    .then(async function (sucess) {
+      console.log("request sucess: ", sucess.name);
     })
     .catch(function (error) {
       console.log("Request failure: ", error);
     });
-
-  res.redirect("/Students");
+    res.redirect("Students")
+  //res.redirect(req.originalUrl);
 });
 
 //Starts the Express server with a callback

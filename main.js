@@ -115,7 +115,6 @@ let searchByGroupName = async (dataBase, req) => {
 let addToStudentsCollection = async (dataBase, req) => {
   let studentToAdd = req.body;
   try {
-    
     await dataBase.collection("Students").insertOne(studentToAdd);
   } catch (error) {
     console.log(error);
@@ -176,10 +175,7 @@ let showGroup = async (dataBase) => {
 let addToGroupsCollection = async (dataBase, req) => {
   let groupsToAdd = req.body;
   try {
-    let arrayForMyGroupsToAdd = [];
-
-    arrayForMyGroupsToAdd.push(groupsToAdd);
-    await dataBase.collection("Groups").insertMany(arrayForMyGroupsToAdd);
+    await dataBase.collection("Groups").insertOne(groupsToAdd);
   } catch (error) {
     console.log(error);
   }
