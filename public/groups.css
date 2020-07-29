@@ -3,6 +3,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* nav bar  */
 .topnav {
   overflow: hidden;
   background-color: #096eb1;
@@ -26,6 +27,10 @@ body {
   background-color: #4caf50;
   color: white;
 }
+
+/* fin de la nav bar */
+
+
 .groupList li {
   list-style-type: none;
 }

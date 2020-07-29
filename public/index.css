@@ -6,7 +6,9 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
 }
-
+h1{
+  color: white;
+}
 .topnav {
   overflow: hidden;
   background-color: #096eb1;

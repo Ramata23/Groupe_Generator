@@ -1,6 +1,8 @@
+// var bodyParser = require("body-parser");
+const fetch = require("node-fetch");
 const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
-const fetch = require("node-fetch");
+
 
 const PORT = 3000; 
 let studentArray = [];
@@ -24,9 +26,13 @@ let getGroupsName = async () => {
 };
 getGroupsName();
 
-app.set("view engine", "ejs");
-// mention the public directory from which you are serving the static files. Like css/js/image
-app.use(express.static("public"));
+// let postStudent = async () =>{
+//   let studentToAdd = req.body
+// }
+
+app.set("view engine", "ejs"); // the view engine in type of ejs
+app.use(express.static("public"));// mention the public directory from which you are serving the static files. Like css/js/image
+// app.use(bodyParser.urlencoded({ extended: true })); // allow us to use body-parser
 
 //Creates a Root Route
 app.get("/", function (req, res) {
