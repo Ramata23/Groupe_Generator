@@ -19,29 +19,35 @@
     </div> -->
 
     <div class="groupList">
-      <h2>List of Groups</h2>
+      <h2>Groups name</h2>
       <ul>
         <% for (var i = 0; i < groupsArray.length ; i++) { %>
-        <li><%= groupsArray[i].name %></li>
+        <li><%= groupsArray[i].name + " ===== " + groupsArray[i].name_Of_Student %></li>
         <% } %>
       </ul>
     </div>
 
     <main>
-      <h4>GroupsGenerator(2)</h4>
+      <h2>Just Create :</h2>
+      <ul>
+        <% for (var i = 0; i < projectStudentsArray.length ; i++) { %>
+        <li><%= projectStudentsArray[i]%></li>
+        <% } %>
+      </ul>
       <ul>
 
       </ul>
 
-      <h4>Watch Assignator(3)</h4>
-      <ul>
-        
-      </ul>
-      <form action="">
-        <input type="text" placeholder="ProjetName" />
-        <input type="text" placeholder="GroupsMembre" />
-        <button>Generate</button>
+
+
+
+
+      <form action="/Groups" method="POST">
+        <input type="text" placeholder="ProjetName" name="projetName" />
+        <input type="text" placeholder="GroupsMembre" name="number"/>
+        <button type="submit">Generate</button>
       </form>
+      
     </main>
   </body>
 </html>

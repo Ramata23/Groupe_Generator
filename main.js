@@ -113,7 +113,7 @@ let searchByGroupName = async (dataBase, req) => {
  * @returns the student to add (input)
  */
 let addToStudentsCollection = async (dataBase, req) => {
-  let studentToAdd = req.body;
+  let studentToAdd = req.body; //name: "Coco"
   try {
     await dataBase.collection("Students").insertOne(studentToAdd);
   } catch (error) {

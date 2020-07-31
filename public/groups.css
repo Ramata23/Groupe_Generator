@@ -9,6 +9,9 @@ body {
 h1{
   color: white;
 }
+h2{
+  color: white;
+}
 .topnav {
   display: flex;  
   flex-direction: row;
@@ -49,6 +52,9 @@ h1{
 }
 main {
   text-align: center;
+}
+main ul li {
+  list-style-type: none;
 }
 
 .bg {
